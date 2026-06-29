@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { render } from '@testing-library/react';
-import V3TweaksApp from './v3-tweaks';
+import V3TweaksApp from '@/v3-tweaks';
 
 describe('v3-tweaks - V3TweaksApp Component', () => {
   test('V3TweaksApp コンポーネントがレンダリングされる', () => {

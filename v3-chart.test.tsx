@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { AriaChart, type AriaChartProps } from './v3-chart';
+import { AriaChart, type AriaChartProps } from '@/v3-chart';
 
 describe('v3-chart - AriaChart Component', () => {
   const defaultProps = {

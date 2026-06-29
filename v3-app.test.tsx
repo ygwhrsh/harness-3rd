@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import App from './v3-app';
+import App from '@/v3-app';
 
 describe('v3-app - App Component', () => {
   test('App コンポーネントがレンダリングされる', () => {

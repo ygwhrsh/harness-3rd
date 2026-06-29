@@ -6,8 +6,9 @@
 import React from 'react';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Breakdown, StagePath } from './v3-components';
-import { V3_STAGES } from './v3-constants';
+import { vi } from 'vitest';
+import { Breakdown, StagePath } from '@/v3-components';
+import { V3_STAGES } from '@/v3-constants';
 
 describe('v3-components - Breakdown Component', () => {
   test('初期レンダリング: 資産構成を表示', () => {
@@ -50,7 +51,7 @@ describe('v3-components - Breakdown Component', () => {
 
 describe('v3-components - StagePath Component', () => {
   test('初期レンダリング: 3 段階ノードを表示', () => {
-    const mockSetStage = jest.fn();
+    const mockSetStage = vi.fn();
     render(<StagePath stage={2} setStage={mockSetStage} actual={2} seg={[1, 0.8]} />);
 
     // 少なくとも 1 つのボタンまたはインタラクティブ要素が存在
@@ -59,7 +60,7 @@ describe('v3-components - StagePath Component', () => {
   });
 
   test('stage パラメータが正しく渡される', () => {
-    const mockSetStage = jest.fn();
+    const mockSetStage = vi.fn();
     const { rerender } = render(
       <StagePath stage={1} setStage={mockSetStage} actual={1} seg={[1, 0.5]} />
     );
@@ -70,13 +71,13 @@ describe('v3-components - StagePath Component', () => {
   });
 
   test('setStage コールバックが定義される', () => {
-    const mockSetStage = jest.fn();
+    const mockSetStage = vi.fn();
     render(<StagePath stage={2} setStage={mockSetStage} actual={2} seg={[1, 0.8]} />);
     expect(mockSetStage).toBeDefined();
   });
 
   test('seg パラメータ（進捗率）が機能', () => {
-    const mockSetStage = jest.fn();
+    const mockSetStage = vi.fn();
     const { rerender } = render(
       <StagePath stage={2} setStage={mockSetStage} actual={2} seg={[1, 0.5]} />
     );
@@ -86,7 +87,7 @@ describe('v3-components - StagePath Component', () => {
   });
 
   test('actual パラメータが表示に反映', () => {
-    const mockSetStage = jest.fn();
+    const mockSetStage = vi.fn();
     const { rerender } = render(
       <StagePath stage={2} setStage={mockSetStage} actual={1} seg={[1, 0.5]} />
     );
@@ -96,7 +97,7 @@ describe('v3-components - StagePath Component', () => {
   });
 
   test('Props の型安全性', () => {
-    const mockSetStage = jest.fn();
+    const mockSetStage = vi.fn();
     // Props が正しい型で渡される（TypeScript チェック）
     render(
       <StagePath
@@ -133,7 +134,7 @@ describe('v3-components - Props Validation', () => {
   });
 
   test('StagePath Props: setStage は function', () => {
-    const mockSetStage = jest.fn();
+    const mockSetStage = vi.fn();
     expect(typeof mockSetStage).toBe('function');
   });
 
@@ -156,7 +157,7 @@ describe('v3-components - Accessibility', () => {
   });
 
   test('StagePath: キーボード操作が可能', () => {
-    const mockSetStage = jest.fn();
+    const mockSetStage = vi.fn();
     render(<StagePath stage={2} setStage={mockSetStage} actual={2} seg={[1, 0.8]} />);
 
     // ボタンが存在して操作可能

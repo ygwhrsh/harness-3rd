@@ -1,18 +1,23 @@
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
-import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
   resolve: {
-    alias: {
-      '@': path.resolve(__dirname, '.'),
-    },
+    tsconfigPaths: true,
   },
   test: {
     globals: true,
-    environment: 'happy-dom',
+    environment: 'jsdom',
+    pool: 'forks',
     setupFiles: ['./vitest.setup.ts'],
+    deps: {
+      optimizer: {
+        ssr: {
+          enabled: true,
+        },
+      },
+    },
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
