@@ -5,6 +5,8 @@ on:
     branches: [main, develop]
   pull_request:
     branches: [main, develop]
+  workflow_dispatch:
+    description: 'Manual workflow trigger for testing'
 
 jobs:
   type-check:
