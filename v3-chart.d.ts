@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Event } from './v3-constants';
-interface AriaChartProps {
+export interface AriaChartProps {
     actual: number[];
     forecast: number[];
     band: Array<[number, number]>;
@@ -11,5 +11,4 @@ interface AriaChartProps {
     height?: number;
 }
 export declare const AriaChart: FC<AriaChartProps>;
-export {};
 //# sourceMappingURL=v3-chart.d.ts.map
