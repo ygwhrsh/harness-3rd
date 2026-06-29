@@ -33,7 +33,7 @@ module.exports = {
     '!**/*.test.tsx',
     '!**/node_modules/**',
   ],
-  testPathIgnorePatterns: ['/node_modules/'],
+  testPathIgnorePatterns: ['/node_modules/', '/tests/'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   coverageThreshold: {
     global: {
