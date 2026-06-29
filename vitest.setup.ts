@@ -2,17 +2,11 @@ import { expect, afterEach, vi } from 'vitest';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-declare global {
-  var localStorage: Storage;
-  var IntersectionObserver: typeof IntersectionObserver;
-  var ResizeObserver: typeof ResizeObserver;
-}
-
 afterEach(() => {
   cleanup();
 });
 
-global.localStorage = {
+globalThis.localStorage = {
   getItem: vi.fn(),
   setItem: vi.fn(),
   removeItem: vi.fn(),
@@ -35,7 +29,7 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-global.IntersectionObserver = class IntersectionObserver {
+globalThis.IntersectionObserver = class IntersectionObserver {
   constructor() {}
   disconnect() {}
   observe() {}
@@ -45,7 +39,7 @@ global.IntersectionObserver = class IntersectionObserver {
   unobserve() {}
 } as any;
 
-global.ResizeObserver = class ResizeObserver {
+globalThis.ResizeObserver = class ResizeObserver {
   constructor() {}
   disconnect() {}
   observe() {}
