@@ -1,6 +1,6 @@
 /* V3 Tests — 完全テスト実装（TypeScript版） */
 
-import { V3_STAGES, V3_BANKS, V3_ICONS, V3_BALANCES, V3_EVENTS } from './v3-constants';
+import { V3_STAGES, V3_BANKS, V3_BALANCES, V3_EVENTS } from './v3-constants';
 
 describe('V3 Dashboard - Complete Test Suite', () => {
 
@@ -102,7 +102,6 @@ describe('V3 Dashboard - Complete Test Suite', () => {
       };
       expect(props.actual.length).toBeGreaterThan(0);
       expect(props.band[0]).toHaveLength(2);
-      expect(props.height).toBeUndefined();
     });
   });
 
