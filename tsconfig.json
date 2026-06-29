@@ -19,8 +19,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
-  "include": ["v3-*.ts", "v3-*.tsx", "jest.setup.ts"],
+  "include": ["v3-*.ts", "v3-*.tsx", "vitest.setup.ts"],
   "exclude": ["node_modules", "dist"]
 }
