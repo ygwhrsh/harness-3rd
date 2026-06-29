@@ -22,6 +22,6 @@
     },
     "types": ["node", "vitest/globals", "@testing-library/jest-dom"]
   },
-  "include": ["src/v3-*.ts", "src/v3-*.tsx", "vitest.setup.ts"],
+  "include": ["src/v3-*.ts", "src/v3-*.tsx", "src/v3.test.ts", "vitest.setup.ts"],
   "exclude": ["node_modules", "dist"]
 }
