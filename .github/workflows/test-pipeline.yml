@@ -9,20 +9,18 @@ on:
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js 20.x
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 20.x
+          cache: npm
 
       - name: Install dependencies
-        run: npm install --legacy-peer-deps --no-save
+        run: npm ci
 
       - name: Type check
         run: npm run type-check
@@ -30,13 +28,13 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Unit tests (Jest)
-        run: npm test -- --coverage
+      - name: Unit tests (Vitest)
+        run: npm test -- --run --coverage
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
-          files: ./coverage/lcov.info
+          files: ./coverage/coverage-final.json
           flags: unittests
           name: codecov-umbrella
 
@@ -47,13 +45,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Setup Node.js 20.x
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: 20.x
+          cache: npm
 
       - name: Install dependencies
-        run: npm install --legacy-peer-deps --no-save
+        run: npm ci
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
@@ -76,13 +75,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Setup Node.js 20.x
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: 20.x
+          cache: npm
 
       - name: Install dependencies
-        run: npm install --legacy-peer-deps --no-save
+        run: npm ci
 
       - name: Build
         run: npm run build:prod
@@ -90,8 +90,11 @@ jobs:
       - name: Check bundle size
         run: |
           SIZE=$(du -sh dist/ | cut -f1)
-          echo "Bundle size: $SIZE"
-          du -sh dist/
+          echo "✅ Bundle size: $SIZE"
+          BYTES=$(du -b dist/ | cut -f1)
+          if [ $BYTES -gt 100000 ]; then
+            echo "⚠️ Warning: Bundle exceeds 100KB ($BYTES bytes)"
+          fi
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
@@ -107,16 +110,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Setup Node.js 20.x
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: 20.x
 
-      - name: Run Lighthouse
-        uses: treosh/lighthouse-ci-action@v9
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v10
         with:
           uploadArtifacts: true
           temporaryPublicStorage: true
+          runs: 3
 
   quality-gate:
     runs-on: ubuntu-latest
