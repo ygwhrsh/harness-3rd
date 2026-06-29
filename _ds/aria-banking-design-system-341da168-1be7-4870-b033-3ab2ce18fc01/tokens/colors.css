@@ -1,0 +1,196 @@
+/* ============================================================
+   Aria Banking — Color System (OKLCH)
+   ------------------------------------------------------------
+   Structure:
+     1. Base palette scales (neutral + 4 pilot hues)
+     2. Semantic tokens — light (:root) and dark (.dark)
+     3. Pilot "skins" (着せ替え) override the brand hue:
+          data-theme="amuro"   → Federation Blue   (default)
+          data-theme="quattro" → Hyaku Shiki Gold
+          data-theme="kamille" → Zeta Teal
+          data-theme="haman"   → Qubeley Violet
+        Skins apply in BOTH light and dark; .dark only flips
+        the neutral ground. Combine: <html class="dark" data-theme="haman">
+   ============================================================ */
+
+:root {
+  /* ---- Neutral ground (zinc-leaning) ---- */
+  --neutral-0:   oklch(1 0 0);
+  --neutral-50:  oklch(0.985 0.001 286);
+  --neutral-100: oklch(0.967 0.001 286);
+  --neutral-150: oklch(0.946 0.003 286);
+  --neutral-200: oklch(0.920 0.004 286);
+  --neutral-300: oklch(0.871 0.006 286);
+  --neutral-400: oklch(0.705 0.012 286);
+  --neutral-500: oklch(0.552 0.014 286);
+  --neutral-600: oklch(0.442 0.014 286);
+  --neutral-700: oklch(0.370 0.012 286);
+  --neutral-800: oklch(0.274 0.010 286);
+  --neutral-900: oklch(0.210 0.010 286);
+  --neutral-950: oklch(0.165 0.010 286);
+  --neutral-1000: oklch(0.130 0.012 286);
+
+  /* ---- Semantic / functional hues ---- */
+  --positive:    oklch(0.62 0.14 152);   /* credit in / success */
+  --positive-fg: oklch(0.985 0.01 152);
+  --negative:    oklch(0.58 0.22 25);    /* destructive / debit alert */
+  --negative-fg: oklch(0.985 0.01 25);
+  --caution:     oklch(0.76 0.14 78);    /* warning */
+  --caution-fg:  oklch(0.265 0.04 78);
+  --info:        oklch(0.62 0.14 240);
+
+  /* ============ LIGHT — semantic tokens ============ */
+  --background:        var(--neutral-50);
+  --foreground:        var(--neutral-950);
+  --card:              var(--neutral-0);
+  --card-foreground:   var(--neutral-950);
+  --popover:           var(--neutral-0);
+  --popover-foreground:var(--neutral-950);
+
+  --muted:             var(--neutral-100);
+  --muted-foreground:  var(--neutral-500);
+  --secondary:         var(--neutral-100);
+  --secondary-foreground: var(--neutral-900);
+
+  --border:            var(--neutral-200);
+  --input:             var(--neutral-200);
+  --ring:              var(--primary);
+
+  --success:           var(--positive);
+  --success-foreground:var(--positive-fg);
+  --destructive:       var(--negative);
+  --destructive-foreground: var(--negative-fg);
+  --warning:           var(--caution);
+  --warning-foreground:var(--caution-fg);
+
+  /* ---- Pilot skin: AMURO (default) ---- */
+  --brand-50:  oklch(0.970 0.018 262);
+  --brand-100: oklch(0.930 0.045 262);
+  --brand-200: oklch(0.860 0.090 262);
+  --brand-400: oklch(0.660 0.180 262);
+  --brand-500: oklch(0.550 0.205 262);
+  --brand-600: oklch(0.490 0.200 262);
+  --brand-700: oklch(0.430 0.175 262);
+
+  --primary:            var(--brand-500);
+  --primary-foreground: oklch(0.985 0.01 262);
+  --accent:             var(--brand-50);
+  --accent-foreground:  var(--brand-700);
+
+  --chart-1: var(--brand-500);
+  --chart-2: oklch(0.62 0.14 152);
+  --chart-3: oklch(0.70 0.13 78);
+  --chart-4: oklch(0.60 0.19 300);
+  --chart-5: oklch(0.62 0.13 200);
+}
+
+/* ============ DARK — neutral ground flip ============ */
+.dark {
+  --background:        var(--neutral-1000);
+  --foreground:        var(--neutral-50);
+  --card:              var(--neutral-950);
+  --card-foreground:   var(--neutral-50);
+  --popover:           var(--neutral-900);
+  --popover-foreground:var(--neutral-50);
+
+  --muted:             var(--neutral-900);
+  --muted-foreground:  var(--neutral-400);
+  --secondary:         var(--neutral-900);
+  --secondary-foreground: var(--neutral-100);
+
+  --border:            oklch(0.30 0.008 286 / 0.7);
+  --input:             oklch(0.36 0.008 286 / 0.6);
+
+  --success:           oklch(0.70 0.15 152);
+  --destructive:       oklch(0.66 0.20 25);
+  --warning:           oklch(0.80 0.14 78);
+}
+
+/* ============================================================
+   PILOT SKINS  (着せ替え)
+   ============================================================ */
+
+/* —— アムロ・レイ / Amuro — Federation Blue (explicit) —— */
+[data-theme="amuro"] {
+  --brand-50:  oklch(0.970 0.018 262);
+  --brand-100: oklch(0.930 0.045 262);
+  --brand-200: oklch(0.860 0.090 262);
+  --brand-400: oklch(0.660 0.180 262);
+  --brand-500: oklch(0.550 0.205 262);
+  --brand-600: oklch(0.490 0.200 262);
+  --brand-700: oklch(0.430 0.175 262);
+  --primary:            var(--brand-500);
+  --primary-foreground: oklch(0.985 0.01 262);
+  --accent:             var(--brand-50);
+  --accent-foreground:  var(--brand-700);
+  --chart-1: var(--brand-500);
+}
+.dark[data-theme="amuro"] {
+  --primary: var(--brand-400);
+  --accent:  oklch(0.34 0.085 262);
+  --accent-foreground: oklch(0.90 0.05 262);
+}
+
+/* —— クワトロ・バジーナ / Quattro — Hyaku Shiki Gold —— */
+[data-theme="quattro"] {
+  --brand-50:  oklch(0.975 0.020 86);
+  --brand-100: oklch(0.940 0.045 86);
+  --brand-200: oklch(0.880 0.080 84);
+  --brand-400: oklch(0.720 0.110 82);
+  --brand-500: oklch(0.625 0.110 80);
+  --brand-600: oklch(0.560 0.105 78);
+  --brand-700: oklch(0.470 0.090 76);
+  --primary:            var(--brand-500);
+  --primary-foreground: oklch(0.990 0.01 86);
+  --accent:             var(--brand-50);
+  --accent-foreground:  var(--brand-700);
+  --chart-1: var(--brand-500);
+}
+.dark[data-theme="quattro"] {
+  --primary: var(--brand-400);
+  --primary-foreground: oklch(0.20 0.03 80);
+  --accent:  oklch(0.36 0.060 82);
+  --accent-foreground: oklch(0.92 0.05 86);
+}
+
+/* —— カミーユ・ビダン / Kamille — Zeta Teal —— */
+[data-theme="kamille"] {
+  --brand-50:  oklch(0.972 0.018 183);
+  --brand-100: oklch(0.935 0.040 183);
+  --brand-200: oklch(0.865 0.070 183);
+  --brand-400: oklch(0.700 0.105 183);
+  --brand-500: oklch(0.600 0.108 183);
+  --brand-600: oklch(0.520 0.098 184);
+  --brand-700: oklch(0.440 0.082 185);
+  --primary:            var(--brand-500);
+  --primary-foreground: oklch(0.990 0.01 183);
+  --accent:             var(--brand-50);
+  --accent-foreground:  var(--brand-700);
+  --chart-1: var(--brand-500);
+}
+.dark[data-theme="kamille"] {
+  --primary: var(--brand-400);
+  --accent:  oklch(0.34 0.055 184);
+  --accent-foreground: oklch(0.90 0.05 183);
+}
+
+/* —— ハマーン・カーン / Haman — Qubeley Violet —— */
+[data-theme="haman"] {
+  --brand-50:  oklch(0.972 0.020 300);
+  --brand-100: oklch(0.935 0.050 300);
+  --brand-200: oklch(0.870 0.095 300);
+  --brand-400: oklch(0.650 0.185 300);
+  --brand-500: oklch(0.555 0.190 300);
+  --brand-600: oklch(0.490 0.180 300);
+  --brand-700: oklch(0.420 0.155 300);
+  --primary:            var(--brand-500);
+  --primary-foreground: oklch(0.990 0.01 300);
+  --accent:             var(--brand-50);
+  --accent-foreground:  var(--brand-700);
+  --chart-1: var(--brand-500);
+}
+.dark[data-theme="haman"] {
+  --primary: var(--brand-400);
+  --accent:  oklch(0.34 0.085 300);
+  --accent-foreground: oklch(0.90 0.06 300);
+}

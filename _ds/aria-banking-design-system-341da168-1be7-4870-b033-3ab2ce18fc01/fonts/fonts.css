@@ -1,0 +1,10 @@
+/* ============================================================
+   Aria Banking — Webfonts
+   Brand face: Geist (Vercel). Geist Mono powers monetary figures.
+   Loaded from Google Fonts CDN. See readme.md > Typography.
+   NOTE: substituted from a self-hosted binary set — if you have
+   licensed Geist .woff2 files, drop them in fonts/ and swap the
+   @import below for @font-face rules pointing at them.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600;700&display=swap');

@@ -1,0 +1,198 @@
+/* V3 App — Aria 準拠 認証後ダッシュボード（成長ステージ型、TypeScript版） */
+
+import React, { useState, useEffect, useRef, useCallback, FC, ReactElement } from 'react';
+import {
+  V3_STAGES,
+  V3_BANKS,
+  V3_BALANCES,
+  V3_CHART_DATA,
+  V3_EVENTS,
+  V3_ACTIONS,
+  Stage,
+  Bank,
+  Balances,
+  ChartData,
+  Event,
+  Action,
+} from './v3-constants';
+import { V3_ICONS, LockIcon, AriaMark } from './v3-icons';
+import { Breakdown, StagePath } from './v3-components';
+
+// グローバルエラーハンドリング
+interface AppError {
+  msg: string;
+  url?: string;
+  line?: number;
+  col?: number;
+  error?: string;
+}
+
+declare global {
+  var appErrors: AppError[];
+  var HBV3: {
+    getStage: () => number;
+    setStage: (n: number) => void;
+  };
+}
+
+interface AppState {
+  stage: number;
+  masked: boolean;
+  skinOpen: boolean;
+  scopeAll: boolean;
+  banks: Bank[];
+  futsu: number;
+  forecastBank: number[];
+  band: Array<[number, number]>;
+  toast: string;
+  themeVersion: number;
+}
+
+const App: FC = (): ReactElement => {
+  // ---- state ----
+  const [state, setState] = useState<AppState>({
+    stage: 2,
+    masked: false,
+    skinOpen: false,
+    scopeAll: false,
+    banks: V3_BANKS.map(b => ({ ...b })),
+    futsu: V3_BALANCES.futsu,
+    forecastBank: V3_CHART_DATA.forecastBank,
+    band: V3_CHART_DATA.band,
+    toast: '',
+    themeVersion: 0,
+  });
+
+  const yen = (n: number): string => '¥' + Math.round(n).toLocaleString('ja-JP');
+
+  const flash = (msg: string): void => {
+    setState(s => ({ ...s, toast: msg }));
+    setTimeout(() => setState(s => ({ ...s, toast: '' })), 3000);
+  };
+
+  const gatedClick = (need: number): boolean => {
+    if (state.stage >= need) return true;
+    return false;
+  };
+
+  // グローバルオブジェクト設定
+  useEffect(() => {
+    window.HBV3 = {
+      getStage: () => state.stage,
+      setStage: (n: number) => {
+        if (n >= 1 && n <= 3) setState(s => ({ ...s, stage: n }));
+      },
+    };
+  }, [state.stage]);
+
+  // ---- render ----
+  const currentStage = V3_STAGES[state.stage];
+
+  return React.createElement(
+    'div',
+    { className: 'v3-page', role: 'main', 'aria-label': 'ダッシュボード' },
+
+    // Header
+    React.createElement(
+      'header',
+      { role: 'banner', className: 'v3-head' },
+      React.createElement('div', { className: 'v3-brand' },
+        React.createElement(AriaMark, { 'aria-label': 'Aria ロゴ' }),
+        React.createElement('span', null, 'Aria Banking')
+      ),
+      React.createElement('button', {
+        className: 'v3-iconbtn',
+        onClick: () => setState(s => ({ ...s, masked: !s.masked })),
+        'aria-pressed': state.masked,
+        'aria-label': state.masked ? '金額を表示' : '金額を非表示',
+      }, React.createElement(state.masked ? V3_ICONS.eyeOff : V3_ICONS.eye))
+    ),
+
+    // Main Content
+    React.createElement(
+      'main',
+      { className: 'v3-main' },
+
+      // Greeting & Stage
+      React.createElement('div', { className: 'v3-greet', role: 'region', 'aria-label': 'ウェルカムメッセージ' },
+        React.createElement('div', null,
+          React.createElement('h1', { className: 'v3-greet__hi' }, 'おはようございます、田中さん'),
+          React.createElement('p', { className: 'v3-greet__sub' }, currentStage.ai)
+        ),
+        React.createElement(StagePath, {
+          stage: state.stage,
+          setStage: (n: number) => setState(s => ({ ...s, stage: n })),
+          actual: 2,
+          seg: currentStage.seg,
+        })
+      ),
+
+      // Chart
+      React.createElement('div', { className: 'v3-hero' },
+        React.createElement('div', { className: 'v3-chart' },
+          React.createElement('canvas', { id: 'chart-canvas', style: { width: '100%', height: '200px' } })
+        )
+      ),
+
+      // Breakdown
+      React.createElement(Breakdown, {
+        futsu: state.futsu,
+        others: state.banks.reduce((s, b) => s + (b.on ? b.amt : 0), 0),
+        stage: state.stage,
+        masked: state.masked,
+      }),
+
+      // Actions
+      React.createElement('div', { className: 'v3-quick', role: 'toolbar', 'aria-label': 'クイックアクション' },
+        V3_ACTIONS.map((a: Action) =>
+          React.createElement('button', {
+            key: a.label,
+            className: `v3-btn v3-btn--${a.variant}`,
+            disabled: state.stage < a.need,
+            'aria-disabled': state.stage < a.need,
+            onClick: () => { if (!gatedClick(a.need)) flash(a.label + '（デモ）'); },
+          }, a.label)
+        )
+      ),
+
+      // Toast
+      state.toast && React.createElement('div', { className: 'v3-toast' },
+        React.createElement(V3_ICONS.shieldCheck, { style: { color: 'var(--success)' } }),
+        React.createElement('span', null, state.toast)
+      )
+    )
+  );
+};
+
+// ---- Render to DOM ----
+const DS = (window as any).AriaBankingDesignSystem_341da1;
+if (!DS) {
+  const root = document.getElementById('root');
+  if (root) {
+    root.innerHTML = `
+      <div style="padding: 20px; color: #d32f2f; font-family: sans-serif;">
+        <h2>⚠️ エラーが発生しました</h2>
+        <p>デザインシステムの読み込みに失敗しました。</p>
+        <button onclick="location.reload()" style="padding: 10px 20px; cursor: pointer;">再度読み込む</button>
+      </div>
+    `;
+  }
+} else {
+  const { createRoot } = ReactDOM;
+  const root = document.getElementById('root');
+  if (root) {
+    createRoot(root).render(React.createElement(App));
+  }
+}
+
+// ---- Global Error Handlers ----
+window.onerror = (msg, url, line, col, error) => {
+  window.appErrors.push({ msg: String(msg), url, line, col, error: error?.stack });
+  console.error('[App Error]', msg, url, line);
+  return false;
+};
+
+window.addEventListener('unhandledrejection', (e) => {
+  window.appErrors.push({ msg: 'Unhandled Promise Rejection', error: String(e.reason) });
+  console.error('[Unhandled Rejection]', e.reason);
+});

@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["v3-app.tsx", "v3-components.tsx", "v3-chart.tsx", "v3-tweaks.tsx", "v3-constants.ts", "v3-icons.tsx"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx", "tests"]
+}

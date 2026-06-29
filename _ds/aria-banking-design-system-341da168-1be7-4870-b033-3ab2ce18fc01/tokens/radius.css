@@ -1,0 +1,22 @@
+/* ============================================================
+   Aria Banking — Radius
+   Friendly but precise. Base 10px. Cards lean generous,
+   inputs/buttons stay calm, pills for chips & avatars.
+   ============================================================ */
+
+:root {
+  --radius: 0.625rem;                       /* 10px base */
+  --radius-xs: calc(var(--radius) - 5px);   /* 5  */
+  --radius-sm: calc(var(--radius) - 3px);   /* 7  */
+  --radius-md: var(--radius);               /* 10 */
+  --radius-lg: calc(var(--radius) + 4px);   /* 14 */
+  --radius-xl: calc(var(--radius) + 10px);  /* 20 */
+  --radius-2xl: calc(var(--radius) + 18px); /* 28 */
+  --radius-full: 999px;
+
+  /* ---- Semantic ---- */
+  --radius-control: var(--radius-md);   /* buttons, inputs */
+  --radius-card:    var(--radius-lg);
+  --radius-sheet:   var(--radius-2xl);  /* bottom sheets / modals */
+  --radius-pill:    var(--radius-full);
+}

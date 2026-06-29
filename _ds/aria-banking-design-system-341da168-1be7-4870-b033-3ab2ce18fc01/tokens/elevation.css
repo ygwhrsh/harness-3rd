@@ -1,0 +1,41 @@
+/* ============================================================
+   Aria Banking — Elevation & Effects
+   Soft, low-contrast shadows tinted with neutral-cool.
+   Banking = calm; nothing floats too high. Plus blur for
+   sheets/overlays and a focus ring recipe.
+   ============================================================ */
+
+:root {
+  --shadow-color: 240 6% 12%;
+
+  --shadow-xs: 0 1px 2px 0 rgb(24 24 30 / 0.05);
+  --shadow-sm: 0 1px 2px -1px rgb(24 24 30 / 0.06), 0 1px 3px 0 rgb(24 24 30 / 0.06);
+  --shadow-md: 0 2px 4px -2px rgb(24 24 30 / 0.07), 0 4px 10px -2px rgb(24 24 30 / 0.08);
+  --shadow-lg: 0 6px 14px -4px rgb(24 24 30 / 0.10), 0 12px 28px -6px rgb(24 24 30 / 0.12);
+  --shadow-xl: 0 12px 28px -8px rgb(24 24 30 / 0.14), 0 24px 56px -12px rgb(24 24 30 / 0.18);
+
+  /* coloured glow for primary CTAs (uses current brand) */
+  --shadow-brand: 0 4px 14px -4px color-mix(in oklch, var(--primary) 45%, transparent);
+
+  /* ---- Borders ---- */
+  --border-width: 1px;
+  --border-hairline: 1px solid var(--border);
+  --ring-width: 2px;
+  --ring-offset: 2px;
+  --focus-ring: 0 0 0 var(--ring-offset) var(--background),
+                0 0 0 calc(var(--ring-offset) + var(--ring-width)) var(--ring);
+
+  /* ---- Glass / overlay ---- */
+  --overlay-scrim: oklch(0.18 0.01 286 / 0.45);
+  --blur-sheet: blur(20px) saturate(1.4); /* @kind other */
+  --glass-bg: color-mix(in oklch, var(--card) 72%, transparent);
+}
+
+.dark {
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.30);
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 0.40), 0 1px 3px 0 rgb(0 0 0 / 0.35);
+  --shadow-md: 0 2px 4px -2px rgb(0 0 0 / 0.45), 0 4px 10px -2px rgb(0 0 0 / 0.45);
+  --shadow-lg: 0 6px 14px -4px rgb(0 0 0 / 0.50), 0 12px 28px -6px rgb(0 0 0 / 0.55);
+  --shadow-xl: 0 12px 28px -8px rgb(0 0 0 / 0.55), 0 24px 56px -12px rgb(0 0 0 / 0.65);
+  --overlay-scrim: oklch(0.10 0.01 286 / 0.6);
+}

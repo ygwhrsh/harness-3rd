@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="amuro">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ホーム | Aria</title>
+
+<link rel="stylesheet" href="_ds/aria-banking-design-system-341da168-1be7-4870-b033-3ab2ce18fc01/fonts/fonts.css" />
+<link rel="stylesheet" href="_ds/aria-banking-design-system-341da168-1be7-4870-b033-3ab2ce18fc01/tokens/colors.css" />
+<link rel="stylesheet" href="_ds/aria-banking-design-system-341da168-1be7-4870-b033-3ab2ce18fc01/tokens/typography.css" />
+<link rel="stylesheet" href="_ds/aria-banking-design-system-341da168-1be7-4870-b033-3ab2ce18fc01/tokens/spacing.css" />
+<link rel="stylesheet" href="_ds/aria-banking-design-system-341da168-1be7-4870-b033-3ab2ce18fc01/tokens/radius.css" />
+<link rel="stylesheet" href="_ds/aria-banking-design-system-341da168-1be7-4870-b033-3ab2ce18fc01/tokens/elevation.css" />
+<link rel="stylesheet" href="_ds/aria-banking-design-system-341da168-1be7-4870-b033-3ab2ce18fc01/tokens/motion.css" />
+<link rel="stylesheet" href="_ds/aria-banking-design-system-341da168-1be7-4870-b033-3ab2ce18fc01/tokens/base.css" />
+<link rel="stylesheet" href="_ds/aria-banking-design-system-341da168-1be7-4870-b033-3ab2ce18fc01/styles.css" />
+<link rel="stylesheet" href="v3.css" />
+<style>
+  html,body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-sans);}
+</style>
+</head>
+<body>
+  <template id="__bundler_thumbnail" data-bg-color="#2a3bd4">
+    <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1200" height="800" fill="#2a3bd4"></rect>
+      <path d="M340 540 C 470 510, 540 430, 640 400 C 740 370, 800 320, 860 280" fill="none" stroke="#fff" stroke-width="26" stroke-linecap="round"></path>
+      <circle cx="860" cy="280" r="42" fill="#fff"></circle>
+    </svg>
+  </template>
+
+  <div id="root" role="application" aria-label="Aria バンキングダッシュボード"></div>
+
+  <script>
+    window.appErrors = [];
+    window.onerror = function(msg, url, line, col, error) {
+      window.appErrors.push({ msg, url, line, col, error: error ? error.stack : '' });
+      console.error('[App Error]', msg, url, line);
+    };
+    window.addEventListener('unhandledrejection', function(e) {
+      window.appErrors.push({ msg: 'Unhandled Promise Rejection', error: e.reason });
+      console.error('[Unhandled Rejection]', e.reason);
+    });
+  </script>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="_ds/aria-banking-design-system-341da168-1be7-4870-b033-3ab2ce18fc01/_ds_bundle.js"></script>
+
+  <script src="v3-constants.js"></script>
+  <script src="v3-icons.js"></script>
+  <script type="text/babel" src="v3-components.jsx"></script>
+  <script type="text/babel" src="v3-chart.jsx"></script>
+  <script type="text/babel" src="v3-app.jsx"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="v3-tweaks.jsx"></script>
+</body>
+</html>
