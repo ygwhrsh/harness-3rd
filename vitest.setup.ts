@@ -2,6 +2,12 @@ import { expect, afterEach, vi } from 'vitest';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
+declare global {
+  var localStorage: Storage;
+  var IntersectionObserver: typeof IntersectionObserver;
+  var ResizeObserver: typeof ResizeObserver;
+}
+
 afterEach(() => {
   cleanup();
 });
