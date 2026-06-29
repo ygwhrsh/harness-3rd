@@ -18,10 +18,10 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"]
     },
-    "types": ["vitest/globals", "@testing-library/jest-dom"]
+    "types": ["node", "vitest/globals", "@testing-library/jest-dom"]
   },
-  "include": ["v3-*.ts", "v3-*.tsx", "vitest.setup.ts"],
+  "include": ["src/v3-*.ts", "src/v3-*.tsx", "vitest.setup.ts"],
   "exclude": ["node_modules", "dist"]
 }

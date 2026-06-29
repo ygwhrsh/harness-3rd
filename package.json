@@ -14,8 +14,8 @@
     "build": "webpack --config webpack.config.js",
     "build:prod": "webpack --config webpack.config.js --mode production",
     "type-check": "tsc --noEmit",
-    "lint": "eslint v3-*.tsx v3-*.ts",
-    "lint:fix": "eslint v3-*.tsx v3-*.ts --fix"
+    "lint": "eslint src/v3-*.tsx src/v3-*.ts",
+    "lint:fix": "eslint src/v3-*.tsx src/v3-*.ts --fix"
   },
   "keywords": [
     "banking",
