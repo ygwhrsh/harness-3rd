@@ -3,7 +3,7 @@
 import React, { useRef, useEffect, FC, ReactElement, RefObject } from 'react';
 import { Event } from './v3-constants';
 
-interface AriaChartProps {
+export interface AriaChartProps {
   actual: number[];
   forecast: number[];
   band: Array<[number, number]>;

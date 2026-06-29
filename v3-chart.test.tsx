@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { AriaChart } from './v3-chart';
+import { AriaChart, type AriaChartProps } from './v3-chart';
 
 describe('v3-chart - AriaChart Component', () => {
   const defaultProps = {
@@ -15,7 +15,7 @@ describe('v3-chart - AriaChart Component', () => {
     events: [],
     masked: false,
     themeVersion: 0,
-  };
+  } as const as AriaChartProps;
 
   test('Canvas 要素がレンダリングされる', () => {
     render(<AriaChart {...defaultProps} />);
@@ -79,7 +79,7 @@ describe('v3-chart - AriaChart Component', () => {
       <AriaChart
         {...defaultProps}
         events={[
-          { x: 5, name: 'Event 1', inflow: true },
+          { x: 5, name: 'Event 1', inflow: true, amt: '100' },
         ]}
       />
     );
@@ -89,8 +89,8 @@ describe('v3-chart - AriaChart Component', () => {
       <AriaChart
         {...defaultProps}
         events={[
-          { x: 5, name: 'Event 1', inflow: true },
-          { x: 10, name: 'Event 2', inflow: false },
+          { x: 5, name: 'Event 1', inflow: true, amt: '100' },
+          { x: 10, name: 'Event 2', inflow: false, amt: '200' },
         ]}
       />
     );
@@ -149,8 +149,8 @@ describe('v3-chart - Props Validation', () => {
 
   test('AriaChartProps: events は Event[]', () => {
     const events = [
-      { x: 5, name: 'Event 1', inflow: true },
-      { x: 10, name: 'Event 2', inflow: false },
+      { x: 5, name: 'Event 1', inflow: true, amt: '100' },
+      { x: 10, name: 'Event 2', inflow: false, amt: '200' },
     ];
     expect(Array.isArray(events)).toBe(true);
     events.forEach(e => {
